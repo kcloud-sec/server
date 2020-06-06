@@ -21,8 +21,8 @@ rules.route('/rules').get((req, res) => {
 
 function loadUserCredential () {
   return AWS.config.update({
-    accessKeyId: 'XXX',
-    secretAccessKey: 'XXX'
+    accessKeyId: 'AKIAUA7Y3CZN6OH7OV5F',
+    secretAccessKey: '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'
   });
 }
 
@@ -58,36 +58,45 @@ function validateRule (region, rules, ruleType) {
   }
 }
 
-rules.route('/services').get(async (req, res) => {
-  let inboundRules = [];
-  let response = {};
-  loadUserCredential();
+
+async function fetchEC2Services () {
+  let errorObj = {}; let allRegions = {}; let data = [];
+
+  // Get all the regions
   let ec2Region = loadUserRegion('ap-south-1');
   await ec2Region.describeRegions( (regionErr, regionData) => {
     if (regionErr) {
-      console.log(regionErr);
+      errorObj = regionErr;
     } else {
-      regionData.Regions.forEach( (region) => {
-        if (region.RegionName) {
-          let ec2SecurityGroups = loadUserRegion(region.RegionName);
-          ec2SecurityGroups.describeSecurityGroups((securityGroupErr, securityGroupData) => {
-            if (securityGroupErr) {
-              console.log('error', securityGroupErr);
-            } else {
-              if (securityGroupData && securityGroupData.SecurityGroups && securityGroupData.SecurityGroups[0] && securityGroupData.SecurityGroups[0].IpPermissions) {
-                // inboundRules.push({
-                //   region: region.RegionName ,
-                //   rules: securityGroupData.SecurityGroups[0].IpPermissions
-                // });
-                response = validateRule(region.RegionName, securityGroupData.SecurityGroups[0].IpPermissions, 'Unrestricted_SSH_Access');
-              }
-            }
-          });
-        }
-      });
+      allRegions = regionData;
     }
-  });
-  res.json({'data': response});
+  }).promise();
+
+  // Loop all the regions, get securityGroup details, validate with specific rules
+  const regions = allRegions.Regions;
+  for (let index = 0; index < regions.length; index++) {
+    let regionName = regions[index].RegionName;
+    let ec2SecurityGroups = loadUserRegion(regionName);
+    await ec2SecurityGroups.describeSecurityGroups((securityGroupErr, securityGroupData) => {
+      if (securityGroupErr) {
+        errorObj = securityGroupErr;
+      } else {
+        if (securityGroupData && securityGroupData.SecurityGroups && securityGroupData.SecurityGroups[0] && securityGroupData.SecurityGroups[0].IpPermissions) {
+          let response = validateRule(regionName, securityGroupData.SecurityGroups[0].IpPermissions, 'Unrestricted_SSH_Access');
+          if (response && !data.some((item) => item.region === regionName)) {
+            data.push(response);
+          }
+        }
+      }
+    }).promise();
+  }
+
+  return data;
+}
+
+rules.route('/services').get(async (req, res) => {
+  let data = await fetchEC2Services();
+  await res.json({'data': data});
 });
 
 module.exports = rules;
