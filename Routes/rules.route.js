@@ -21,8 +21,8 @@ rules.route('/rules').get((req, res) => {
 
 function loadUserCredential () {
   return AWS.config.update({
-    accessKeyId: 'AKIAUA7Y3CZN6OH7OV5F',
-    secretAccessKey: '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'
+    accessKeyId: XXX,
+    secretAccessKey: XXX
   });
 }
 
