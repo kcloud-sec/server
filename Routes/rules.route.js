@@ -44,23 +44,30 @@ function hasSSHPort (rule) {
   return (rule.FromPort > 0 && rule.ToPort === 22);
 }
 
-function validateRule (region, rules, ruleType) {
+let dashboardData = [];
+
+async function validateRule (region, rules, ruleType, response, validatedRegionCount) {
   if (ruleType === 'Unrestricted_SSH_Access') {
     for(let index=0; index < rules.length; index++) {
       if (hasIpLocalHost(rules[index]) || hasIpV6LocalHost(rules[index]) || hasSSHPort(rules[index])) {
-        return {
+        dashboardData.push({
           status: 'failure',
           message: 'Security group default allows ingress from 0.0.0.0/0 or ::/0 to port 22',
           region: region
-        }
+        });
       }
     }
   }
+
+  if (validatedRegionCount === 16) {
+    let boardData = dashboardData;
+    dashboardData = [];
+    await response.status(200).json({ 'data': boardData });
+  }
 }
 
-
-async function fetchEC2Services () {
-  let errorObj = {}; let allRegions = {}; let data = [];
+async function fetchEC2Services (response) {
+  let errorObj = {}; let allRegions = {};
 
   // Get all the regions
   let ec2Region = loadUserRegion('ap-south-1');
@@ -74,29 +81,25 @@ async function fetchEC2Services () {
 
   // Loop all the regions, get securityGroup details, validate with specific rules
   const regions = allRegions.Regions;
+  let validatedRegionCount = 1;
   for (let index = 0; index < regions.length; index++) {
     let regionName = regions[index].RegionName;
     let ec2SecurityGroups = loadUserRegion(regionName);
-    await ec2SecurityGroups.describeSecurityGroups((securityGroupErr, securityGroupData) => {
+    ec2SecurityGroups.describeSecurityGroups((securityGroupErr, securityGroupData) => {
       if (securityGroupErr) {
         errorObj = securityGroupErr;
       } else {
         if (securityGroupData && securityGroupData.SecurityGroups && securityGroupData.SecurityGroups[0] && securityGroupData.SecurityGroups[0].IpPermissions) {
-          let response = validateRule(regionName, securityGroupData.SecurityGroups[0].IpPermissions, 'Unrestricted_SSH_Access');
-          if (response && !data.some((item) => item.region === regionName)) {
-            data.push(response);
-          }
+          validateRule(regionName, securityGroupData.SecurityGroups[0].IpPermissions, 'Unrestricted_SSH_Access', response, validatedRegionCount++);
         }
       }
-    }).promise();
+    });
   }
-
-  return data;
 }
 
 rules.route('/services').get(async (req, res) => {
-  let data = await fetchEC2Services();
-  await res.json({'data': data});
+  loadUserCredential();
+  await fetchEC2Services(res);
 });
 
 module.exports = rules;
