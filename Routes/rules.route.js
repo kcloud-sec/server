@@ -18,8 +18,8 @@ const rules = express.Router();
 
 function loadUserCredential () {
   return AWS.config.update({
-    accessKeyId: XXX,
-    secretAccessKey: XXX
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_KEY
   });
 }
 
