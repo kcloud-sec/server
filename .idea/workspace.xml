@@ -4,6 +4,7 @@
     <list default="true" id="d08ae433-cb2a-4fa1-af68-32d6083381d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Routes/rules.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/Routes/rules.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,11 +59,19 @@
       <workItem from="1590986053771" duration="598000" />
       <workItem from="1591075987970" duration="3000" />
       <workItem from="1591451905905" duration="11048000" />
-      <workItem from="1591514909895" duration="8550000" />
+      <workItem from="1591514909895" duration="15495000" />
+      <workItem from="1591545688295" duration="1881000" />
+      <workItem from="1592038766823" duration="13387000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="505" y="230" width="670" height="676" key="search.everywhere.popup" timestamp="1592061289044">
+      <screen x="0" y="23" width="1680" height="944" />
+    </state>
+    <state x="505" y="230" width="670" height="676" key="search.everywhere.popup/0.23.1680.944@0.23.1680.944" timestamp="1592061289044" />
   </component>
 </project>

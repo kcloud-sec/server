@@ -1,22 +1,7 @@
 let express = require('express'),
     path = require('path'),
-    mongoose = require('mongoose'),
     cors = require('cors'),
-    bodyParser = require('body-parser'),
-    dbConfig = require('./db/database');
-
-
-// Connecting mongoDB
-mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.db, {
-  useNewUrlParser: true
-}).then(() => {
-    console.log('Database connected');
-  },
-  error => {
-    console.log('Database could not be connected : ' + error)
-  }
-);
+    bodyParser = require('body-parser');
 
 // Setting up express
 const app = express();
