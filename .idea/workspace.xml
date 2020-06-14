@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d08ae433-cb2a-4fa1-af68-32d6083381d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/lib/cli-options.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/lib/env-options.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/lib/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/types/index.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/types/test.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/types/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/dotenv/types/tslint.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Routes/rules.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/Routes/rules.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +60,8 @@
       <workItem from="1591451905905" duration="11048000" />
       <workItem from="1591514909895" duration="15495000" />
       <workItem from="1591545688295" duration="1881000" />
-      <workItem from="1592038766823" duration="14335000" />
+      <workItem from="1592038766823" duration="14553000" />
+      <workItem from="1592135736300" duration="650000" />
     </task>
     <servers />
   </component>

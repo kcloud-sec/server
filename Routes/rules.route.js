@@ -104,14 +104,14 @@ async function fetchEC2Services (response) {
          metaData.push(data);
        }
     }
-    dashboardData.push([{
+    dashboardData.push({
       rule: rules[ruleIndex],
       service: 'EC2',
       categories: ['security'],
       riskLevel: 'high',
       counts: `Failure ${metaData.length}`,
       meta: metaData
-    }]);
+    });
     metaData = [];
   }
 
@@ -129,7 +129,7 @@ rules.route('/services').get(async (req, res) => {
       }
     });
   }
-  res.status(200).json({ 'data': [{ user_id: userId, data: data }] });
+  res.status(200).json([{ user_id: userId, data: data }]);
 });
 
 rules.route('/dashboard').get(async (req, res) => {
