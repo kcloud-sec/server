@@ -123,13 +123,13 @@ rules.route('/services').get(async (req, res) => {
   let data = await fetchEC2Services(res);
   let userId = 'test';
   if (Object.keys(data).length) {
-    db.collection('dashboard').insertOne({'data': [{ user_id: userId, data: data }] }, function (error, record) {
+    db.collection('dashboard').insertOne({ user_id: userId, data: data }, function (error, record) {
       if (error) {
         res.json({'data': 'Something went wrong'});
       }
     });
   }
-  res.status(200).json([{ user_id: userId, data: data }]);
+  res.status(200).json({ user_id: userId, data: data });
 });
 
 rules.route('/dashboard').get(async (req, res) => {
