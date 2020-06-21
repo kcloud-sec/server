@@ -125,7 +125,7 @@ rules.route('/services').get(async (req, res) => {
   if (Object.keys(data).length) {
     db.collection('dashboard').insertOne({ user_id: userId, data: data }, function (error, record) {
       if (error) {
-        res.json({'data': 'Something went wrong'});
+        res.json({'data': 'Something went wrong!'});
       }
     });
   }
